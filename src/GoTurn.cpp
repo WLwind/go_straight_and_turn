@@ -25,7 +25,7 @@ geometry_msgs::Twist GoTurn::getCmdVel(const nav_msgs::Odometry::ConstPtr& ptr)
         ROS_INFO("Start yaw is %frad",yaw);
     }
     setDistance(fabs(destination-yaw));//goal yaw - current yaw
-    if(getDistance()>=0.01)
+    if(getDistance()>=0.08)
     {
         if(goal_sign)
             turn_speed.angular.z=getSpeed()!=0.0?getSpeed():0.3;
