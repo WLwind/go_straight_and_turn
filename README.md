@@ -1,5 +1,5 @@
 # go_straight_and_turn  
-A ROS package that you can let the robot move straight or rotate for a specified distance or radian.
+A ROS package that you can let your robot move straight or rotate for a specified distance or radian.
 ## Launch files
 * go_straight.launch  
 Let the robot move staight for a specified distance with a specified linear velocity.
@@ -14,4 +14,4 @@ The topic published to the robot mobile base (geometry_msgs/Twist).
 Linear or angular distance that robot will move for (m or rad).
 4. velocity  
 Linear or angular velocity that robot will move with (m/s or rad/s).  
-__All the default argements are appropriate with Turtlebot3.__
+__All default arguments are appropriate with Turtlebot3.__
