@@ -8,8 +8,8 @@ GoTurn::GoTurn(double g,double spd):GoTurn(g)//C++11 delegate constructor
 geometry_msgs::Twist GoTurn::getCmdVel(const nav_msgs::Odometry::ConstPtr& ptr)
 {
     double roll,pitch,yaw;
-    geometry_msgs::Twist turn_speed;
-    tf::Quaternion tfq;
+    geometry_msgs::Twist turn_speed;//msg quaternion
+    tf::Quaternion tfq;//tf quaternion
     tf::quaternionMsgToTF(ptr->pose.pose.orientation, tfq);//msg quaternion to tf quaternion
     tf::Matrix3x3(tfq).getRPY(roll, pitch, yaw);//tf quaternion to Euler angle
 
@@ -25,7 +25,7 @@ geometry_msgs::Twist GoTurn::getCmdVel(const nav_msgs::Odometry::ConstPtr& ptr)
         ROS_INFO("Start yaw is %frad",yaw);
     }
     setDistance(fabs(destination-yaw));//goal yaw - current yaw
-    if(getDistance()>=0.08)
+    if(getDistance()>=0.08)//tolerance
     {
         if(goal_sign)
             turn_speed.angular.z=getSpeed()!=0.0?getSpeed():0.3;
@@ -36,7 +36,7 @@ geometry_msgs::Twist GoTurn::getCmdVel(const nav_msgs::Odometry::ConstPtr& ptr)
     {
         turn_speed.angular.z=0.0;
         setStop();
-        ROS_INFO("End yaw is %f",yaw);
+        ROS_INFO("Final yaw is %f",yaw);
     }
     return turn_speed;
 }

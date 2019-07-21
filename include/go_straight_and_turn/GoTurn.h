@@ -8,11 +8,11 @@ class GoTurn:public GoCMD
 {
 public:
     using GoCMD::GoCMD;//C++11 inherit constructor
-    GoTurn(double,double);//constructor with 2 arguments
+    GoTurn(double,double);//constructor with distance and velocity arguments
     geometry_msgs::Twist getCmdVel(const nav_msgs::Odometry::ConstPtr&) override;//obtain angular velocity
     virtual ~GoTurn(){}
 
 private:
-    double start{0.0},destination{0.0};//inicial yaw，goal yaw
+    double start{0.0},destination{0.0};//initial yaw，goal yaw
 };
 //#endif
