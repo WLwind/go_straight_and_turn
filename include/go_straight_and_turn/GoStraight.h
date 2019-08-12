@@ -8,7 +8,6 @@ class GoStraight:public GoCMD
 {
 public:
     using GoCMD::GoCMD;//C++11 inherit constructor
-    GoStraight(double,double);//constructor with radian and velocity arguments
     geometry_msgs::Twist getCmdVel(const nav_msgs::Odometry::ConstPtr&) override;//obtain linear velocity
     virtual ~GoStraight(){}
 

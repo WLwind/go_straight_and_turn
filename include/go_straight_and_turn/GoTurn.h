@@ -8,7 +8,6 @@ class GoTurn:public GoCMD
 {
 public:
     using GoCMD::GoCMD;//C++11 inherit constructor
-    GoTurn(double,double);//constructor with distance and velocity arguments
     geometry_msgs::Twist getCmdVel(const nav_msgs::Odometry::ConstPtr&) override;//obtain angular velocity
     virtual ~GoTurn(){}
 

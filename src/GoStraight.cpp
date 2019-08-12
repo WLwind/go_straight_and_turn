@@ -1,10 +1,5 @@
 #include <go_straight_and_turn/GoStraight.h>
 
-GoStraight::GoStraight(double dis,double spd):GoStraight(dis)//C++11 delegate constructor
-{
-    setSpeed(spd);
-}
-
 geometry_msgs::Twist GoStraight::getCmdVel(const nav_msgs::Odometry::ConstPtr& ptr)
 {
     double x=ptr->pose.pose.position.x;
@@ -17,13 +12,13 @@ geometry_msgs::Twist GoStraight::getCmdVel(const nav_msgs::Odometry::ConstPtr& p
         clearFirstTime();
         ROS_INFO("Start coordinate is (%.3f,%.3f)",x,y);
     }
-    setDistance(fabs(getGoal())-sqrt(pow(x-start[0],2)+pow(y-start[1],2)));//goal distance - current distance
-    if(getDistance()>=0.005)//tolerance
+    distance=fabs(goal)-sqrt(pow(x-start[0],2)+pow(y-start[1],2));//goal distance - current distance
+    if(distance>=0.005)//tolerance
     {
         if(goal_sign)
-            straight_speed.linear.x=getSpeed()!=0.0?getSpeed():0.03;
+            straight_speed.linear.x=speed!=0.0?speed:0.03;
         else
-            straight_speed.linear.x=getSpeed()!=0.0?-getSpeed():-0.03;
+            straight_speed.linear.x=speed!=0.0?-speed:-0.03;
     }
     else
     {

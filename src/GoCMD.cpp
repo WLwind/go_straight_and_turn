@@ -1,6 +1,6 @@
 #include <go_straight_and_turn/GoCMD.h>
 
-GoCMD::GoCMD(double goal_start):goal(goal_start),distance(goal_start)
+GoCMD::GoCMD(double goal_init,double speed_init):goal(goal_init),distance(goal_init),speed(speed_init)
 {
     goal_sign=goal>=0;
     ROS_INFO("Set goal to %.3f",goal);
@@ -34,31 +34,4 @@ void GoCMD::clearFirstTime()
 bool GoCMD::getFirstTime() const
 {
     return first_time;
-}
-
-void GoCMD::setDistance(double d)
-{
-    distance=d;
-    return;
-}
-
-double GoCMD::getDistance() const
-{
-    return distance;
-}
-
-double GoCMD::getGoal() const
-{
-    return goal;
-}
-
-void GoCMD::setSpeed(double spd)
-{
-    speed=spd;
-    return;
-}
-
-double GoCMD::getSpeed() const
-{
-    return speed;
 }
