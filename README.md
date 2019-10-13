@@ -14,4 +14,7 @@ The topic published to the robot mobile base (geometry_msgs/Twist).
 Linear or angular distance that robot will move for (m or rad).
 4. velocity  
 Linear or angular velocity that robot will move with (m/s or rad/s).  
-__All default arguments are appropriate with Turtlebot3.__
+__All default arguments are appropriate with Turtlebot3.__  
+## Examples
+go_straight example: `roslaunch go_straight_and_turn go_straight.launch odom_topic:=/odom cmd_vel_topic:=/cmd_vel distance:=0.5 velocity:=0.15`  
+go_turn example: `roslaunch go_straight_and_turn go_turn.launch odom_topic:=/odom cmd_vel_topic:=/cmd_vel distance:=-1.57 velocity:=0.3`  
