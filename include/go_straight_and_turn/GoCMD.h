@@ -12,13 +12,40 @@
 class GoCMD
 {
 public:
-    GoCMD(double=0.1,double=0.1);//constructor with 2 default value
+    /**
+    * @brief Constructor with 2 default arguments
+    * @param goal_init The goal distance
+    * @param speed_init The speed that you want your robot to move
+    */
+    GoCMD(double goal_init=0.1,double speed_init=0.1);
+    /**
+    * @brief Destructor
+    */
     virtual ~GoCMD(){}
-    void odomCB(const nav_msgs::Odometry::ConstPtr&);//odom callback funtion
-    virtual geometry_msgs::Twist getCmdVel(const nav_msgs::Odometry::ConstPtr&)=0;//get velocity command from derived class
-    void setStop();//set stop sign
-    void clearFirstTime();//clear fisrt time sign
-    bool getFirstTime() const;//read first time sign
+    /**
+    * @brief Odom subscriber callback funtion
+    */
+    void odomCB(const nav_msgs::Odometry::ConstPtr&);
+    /**
+    * @brief Get velocity command from derived class
+    * @param ptr Pointer of odom message
+    * @return Velocity command for the robot
+    */
+    virtual geometry_msgs::Twist getCmdVel(const nav_msgs::Odometry::ConstPtr&)=0;
+    /**
+    * @brief Set stop sign to true
+    */
+    void setStop();
+    /**
+    * @brief Set fisrt first_time to false
+    */
+    void clearFirstTime();
+    /**
+    * @brief Get first time sign
+    * @return first_time
+    */
+    bool getFirstTime() const;
+
     bool goal_sign{true};//plus or minus sign
 
 private:
@@ -30,7 +57,7 @@ private:
 
 protected:
     double goal{0};//goal distance
-    double distance{0.0};//discance to the goal
+    double distance{0.0};//distance to the goal
     double speed{0.0};//velocity m/s or rad/s
 };
 //#endif

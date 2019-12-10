@@ -8,7 +8,15 @@ class GoStraight:public GoCMD
 {
 public:
     using GoCMD::GoCMD;//C++11 inherit constructor
-    geometry_msgs::Twist getCmdVel(const nav_msgs::Odometry::ConstPtr&) override;//obtain linear velocity
+    /**
+    * @brief Get linear velocity command
+    * @param ptr Pointer of odom message
+    * @return Velocity command for the robot
+    */
+    geometry_msgs::Twist getCmdVel(const nav_msgs::Odometry::ConstPtr&) override;
+    /**
+    * @brief Destructor
+    */
     virtual ~GoStraight(){}
 
 private:
