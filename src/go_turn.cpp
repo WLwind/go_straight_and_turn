@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
     {
         go_turn_object_ptr.reset(new GoTurn(atof(argv[1]),atof(argv[2])));//radian, angular velocity
     }
-    ros::spin();
+    ros::MultiThreadedSpinner spinner(2);
+    spinner.spin();
     return 0;
 }

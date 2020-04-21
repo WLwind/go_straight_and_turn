@@ -3,8 +3,9 @@
 //#define GO_CMD_H
 
 #include <iostream>
-#include <ros/ros.h>
+#include <mutex>
 #include <stdlib.h>
+#include <ros/ros.h>
 #include <tf/transform_listener.h>
 #include <geometry_msgs/Twist.h>
 #include <nav_msgs/Odometry.h>
@@ -49,11 +50,16 @@ public:
     bool goal_sign{true};//plus or minus sign
 
 private:
+    void timerCB(const ros::TimerEvent& ev);
     ros::NodeHandle nh;
     ros::Subscriber odom_sub{nh.subscribe<nav_msgs::Odometry>("odom",1,boost::bind(&GoCMD::odomCB,this,_1))};//odom publisher
     ros::Publisher vel_pub{nh.advertise<geometry_msgs::Twist>("cmd_vel",1)};//velocity publisher
     geometry_msgs::Twist cmd_vel_msg;//velocity mesage
+    std::mutex m_cmd_vel_mx;
     bool need_stop{false},first_time{true};//stop signal，first time or not
+    std::mutex m_need_stop_mx;
+    double m_ctrl_freq{10.0};
+    ros::Timer m_cmd_timer;
 
 protected:
     double goal{0};//goal distance

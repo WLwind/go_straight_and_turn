@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
     {
         go_straight_object_ptr.reset(new GoStraight(atof(argv[1]),atof(argv[2])));//distance、linear velocity
     }
-    ros::spin();
+    ros::MultiThreadedSpinner spinner(2);
+    spinner.spin();
     return 0;
 }
