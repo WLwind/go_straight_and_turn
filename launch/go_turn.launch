@@ -6,6 +6,7 @@
     <arg name="odom_topic" default="/odom"/>
     <arg name="ctrl_freq" default="10.0"/>
     <node name="go_turn" pkg="go_straight_and_turn" type="go_turn" args="$(arg distance) $(arg velocity)" output="screen">
+        <param name="ctrl_freq" value="$(arg ctrl_freq)"/>
         <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
         <remap from="odom" to="$(arg odom_topic)"/>
     </node>
