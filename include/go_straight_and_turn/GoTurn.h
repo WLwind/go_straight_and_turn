@@ -8,7 +8,7 @@ class GoTurn:public GoCMD
 {
 public:
 //    using GoCMD::GoCMD;//C++11 inherit constructor
-    GoTurn(double goal_init=0.1,double speed_init=0.1);
+    GoTurn(double goal_init=0.1,double speed_init=0.1,bool shutdown=true);
     /**
     * @brief Get angular velocity command
     * @param ptr Pointer of odom message

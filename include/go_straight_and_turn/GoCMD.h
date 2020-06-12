@@ -1,12 +1,9 @@
-#pragma once//or _Pragma("once");
-//#ifndef GO_CMD_H
-//#define GO_CMD_H
+#pragma once
 
 #include <iostream>
 #include <mutex>
 #include <stdlib.h>
 #include <ros/ros.h>
-#include <tf/transform_listener.h>
 #include <geometry_msgs/Twist.h>
 #include <nav_msgs/Odometry.h>
 
@@ -18,7 +15,7 @@ public:
     * @param goal_init The goal distance
     * @param speed_init The speed that you want your robot to move
     */
-    GoCMD(double goal_init=0.1,double speed_init=0.1);
+    GoCMD(double goal_init=0.1,double speed_init=0.1,bool shutdown=true);
     /**
     * @brief Destructor
     */
@@ -46,6 +43,11 @@ public:
     * @return first_time
     */
     bool getFirstTime() const;
+    /**
+    * @brief Get stop sign
+    * @return need_stop
+    */
+    bool getStop();
 
     bool goal_sign{true};//plus or minus sign
 
@@ -58,12 +60,12 @@ private:
     std::mutex m_cmd_vel_mx;
     bool need_stop{false},first_time{true};//stop signal，first time or not
     std::mutex m_need_stop_mx;
-    double m_ctrl_freq{10.0};
-    ros::Timer m_cmd_timer;
+    double m_ctrl_freq{10.0};//frequency of publishing cmd_vel
+    ros::Timer m_cmd_timer;//timer for publishing cmd_vel
+    bool m_shutdown{true};//whether to shutdown the node after
 
 protected:
     double goal{0};//goal distance
     double distance{0.0};//distance to the goal
     double speed{0.0};//velocity m/s or rad/s
 };
-//#endif

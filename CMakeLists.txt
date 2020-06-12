@@ -12,7 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   roscpp
   rospy
-  tf
+  tf2
 )
 
 ###################################
@@ -25,9 +25,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES go_straight_and_turn
-#  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy tf
+  INCLUDE_DIRS include
+  LIBRARIES GoStraight GoTurn
+  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy tf2
 #  DEPENDS system_lib
 )
 

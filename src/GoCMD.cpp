@@ -1,6 +1,6 @@
 #include <go_straight_and_turn/GoCMD.h>
 
-GoCMD::GoCMD(double goal_init,double speed_init):goal(goal_init),distance(goal_init),speed(speed_init)
+GoCMD::GoCMD(double goal_init,double speed_init,bool shutdown):m_shutdown(shutdown),goal(goal_init),distance(goal_init),speed(speed_init)
 {
     goal_sign=goal>=0;
     ROS_INFO("Set goal to %.3f",goal);
@@ -43,15 +43,21 @@ void GoCMD::timerCB(const ros::TimerEvent& ev)
     m_cmd_vel_mx.lock();
     vel_pub.publish(cmd_vel_msg);
     m_cmd_vel_mx.unlock();
-    m_need_stop_mx.lock();
-    auto stop=need_stop;
-    m_need_stop_mx.unlock();
-    if(stop)
+    if(getStop())
     {
         geometry_msgs::Twist zero;
         vel_pub.publish(zero);
         ROS_INFO("Done!");
-        ros::shutdown();
+        if(m_shutdown)
+            ros::shutdown();
     }
     return;
+}
+
+bool GoCMD::getStop()
+{
+    m_need_stop_mx.lock();
+    auto stop=need_stop;
+    m_need_stop_mx.unlock();
+    return stop;
 }

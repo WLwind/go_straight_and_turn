@@ -1,6 +1,7 @@
 #include <cmath>
+#include <tf2/utils.h>
 #include <go_straight_and_turn/GoTurn.h>
-GoTurn::GoTurn(double goal_init,double speed_init):GoCMD(goal_init,speed_init)
+GoTurn::GoTurn(double goal_init,double speed_init,bool shutdown):GoCMD(goal_init,speed_init,shutdown)
 {
     laps=goal/2.0/M_PI;
     if(laps!=0)
@@ -11,11 +12,10 @@ GoTurn::GoTurn(double goal_init,double speed_init):GoCMD(goal_init,speed_init)
 
 geometry_msgs::Twist GoTurn::getCmdVel(const nav_msgs::Odometry::ConstPtr& ptr)
 {
-    double roll,pitch,yaw;
     geometry_msgs::Twist turn_speed;//msg quaternion
-    tf::Quaternion tfq;//tf quaternion
-    tf::quaternionMsgToTF(ptr->pose.pose.orientation, tfq);//msg quaternion to tf quaternion
-    tf::Matrix3x3(tfq).getRPY(roll, pitch, yaw);//tf quaternion to Euler angle
+    tf2::Quaternion tf2q;
+    tf2::fromMsg(ptr->pose.pose.orientation,tf2q);//message to tf2
+    double yaw=tf2::getYaw(tf2q);
     if(getFirstTime())
     {
         start=yaw;
@@ -23,13 +23,13 @@ geometry_msgs::Twist GoTurn::getCmdVel(const nav_msgs::Odometry::ConstPtr& ptr)
         destination=destination>=M_PI?destination-2*M_PI:destination;//range of yaw: [-π,π)
         destination=destination<-M_PI?destination+2*M_PI:destination;
         ROS_INFO("Start yaw is %f rad",yaw);
-        if(fabs(destination-yaw)<TURN_THRESHOLD&&abs(goal-laps*2*M_PI)>TURN_THRESHOLD)
+        if(std::fabs(destination-yaw)<TURN_THRESHOLD&&std::fabs(goal-laps*2*M_PI)>TURN_THRESHOLD)
         {
             near_loop=true;
         }
         clearFirstTime();
     }
-    distance=fabs(destination-yaw);//goal yaw - current yaw
+    distance=std::fabs(destination-yaw);//goal yaw - current yaw
     if(distance>=TURN_THRESHOLD)//tolerance
     {
         near_loop=false;
