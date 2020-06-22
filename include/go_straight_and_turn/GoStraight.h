@@ -1,6 +1,4 @@
 #pragma once
-//#ifndef GO_S_H
-//#define GO_S_H
 
 #include <go_straight_and_turn/GoCMD.h>
 
@@ -22,4 +20,4 @@ public:
 private:
     double start[2]{0.0,0.0};//initial coordinate
 };
-//#endif
+

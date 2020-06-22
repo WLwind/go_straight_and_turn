@@ -49,12 +49,12 @@ public:
     */
     bool getStop();
 
-    bool goal_sign{true};//plus or minus sign
+    bool goal_sign{true};//positive or negative sign
 
 private:
     void timerCB(const ros::TimerEvent& ev);
     ros::NodeHandle nh;
-    ros::Subscriber odom_sub{nh.subscribe<nav_msgs::Odometry>("odom",1,boost::bind(&GoCMD::odomCB,this,_1))};//odom publisher
+    ros::Subscriber odom_sub{nh.subscribe<nav_msgs::Odometry>("odom",1,boost::bind(&GoCMD::odomCB,this,_1))};//odom subscriber
     ros::Publisher vel_pub{nh.advertise<geometry_msgs::Twist>("cmd_vel",1)};//velocity publisher
     geometry_msgs::Twist cmd_vel_msg;//velocity mesage
     std::mutex m_cmd_vel_mx;
@@ -62,10 +62,11 @@ private:
     std::mutex m_need_stop_mx;
     double m_ctrl_freq{10.0};//frequency of publishing cmd_vel
     ros::Timer m_cmd_timer;//timer for publishing cmd_vel
-    bool m_shutdown{true};//whether to shutdown the node after
+    bool m_shutdown{true};//whether to shutdown the node after publishing zero speed
 
 protected:
     double goal{0};//goal distance
     double distance{0.0};//distance to the goal
     double speed{0.0};//velocity m/s or rad/s
 };
+

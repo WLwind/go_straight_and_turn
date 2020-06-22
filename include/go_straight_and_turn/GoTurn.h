@@ -1,13 +1,11 @@
 #pragma once
-//#ifndef GO_T_H
-//#define GO_T_H
+
 #include <go_straight_and_turn/GoCMD.h>
 #define TURN_THRESHOLD 0.05
 
 class GoTurn:public GoCMD
 {
 public:
-//    using GoCMD::GoCMD;//C++11 inherit constructor
     GoTurn(double goal_init=0.1,double speed_init=0.1,bool shutdown=true);
     /**
     * @brief Get angular velocity command
@@ -25,4 +23,4 @@ private:
     int laps{0};//numbers of laps the robot should turn
     bool near_loop{false};//whether current orientation is near the start orientation
 };
-//#endif
+
