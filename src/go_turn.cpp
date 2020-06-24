@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     {
         go_turn_object_ptr=std::make_shared<GoTurn>(argc==2?atof(argv[1]):M_PI_2);//radian
     }
-    else if(argc==3)
+    else
     {
         go_turn_object_ptr=std::make_shared<GoTurn>(atof(argv[1]),atof(argv[2]));//radian, angular velocity
     }
