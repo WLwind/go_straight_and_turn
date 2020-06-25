@@ -46,7 +46,6 @@ include_directories(
 ## Declare a C++ library
 
 add_library(GoStraight
-  include/go_straight_and_turn/GoStraight.h
   src/GoStraight.cpp
   src/GoCMD.cpp
 )
@@ -65,7 +64,6 @@ target_link_libraries(go_straight
 )
 
 add_library(GoTurn
-  include/go_straight_and_turn/GoTurn.h
   src/GoTurn.cpp
   src/GoCMD.cpp
 )

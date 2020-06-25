@@ -6,6 +6,7 @@ GoCMD::GoCMD(double goal_init,double speed_init,bool shutdown):m_shutdown(shutdo
     ROS_INFO("Set goal to %.3f",goal);
     ros::NodeHandle private_nh("~/");
     private_nh.param("ctrl_freq",m_ctrl_freq,10.0);
+    private_nh.param("tolerance",m_tolerance,0.01);
     m_cmd_timer=private_nh.createTimer(ros::Duration(1.0/m_ctrl_freq),&GoCMD::timerCB,this);
 }
 

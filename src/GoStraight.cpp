@@ -13,7 +13,7 @@ geometry_msgs::Twist GoStraight::getCmdVel(const nav_msgs::Odometry::ConstPtr& p
         ROS_INFO("Start coordinate is (%.3f,%.3f)",x,y);
     }
     distance=fabs(goal)-sqrt(pow(x-start[0],2)+pow(y-start[1],2));//goal distance - current distance
-    if(distance>=0.005)//tolerance
+    if(distance>=m_tolerance)//tolerance
     {
         if(goal_sign)
             straight_speed.linear.x=speed!=0.0?speed:0.03;

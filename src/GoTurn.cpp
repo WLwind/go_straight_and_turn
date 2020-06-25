@@ -23,14 +23,14 @@ geometry_msgs::Twist GoTurn::getCmdVel(const nav_msgs::Odometry::ConstPtr& ptr)
         destination=destination>=M_PI?destination-2*M_PI:destination;//range of yaw: [-π,π)
         destination=destination<-M_PI?destination+2*M_PI:destination;
         ROS_INFO("Start yaw is %f rad",yaw);
-        if(std::fabs(destination-yaw)<TURN_THRESHOLD&&std::fabs(goal-laps*2*M_PI)>TURN_THRESHOLD)
+        if(std::fabs(destination-yaw)<m_tolerance&&std::fabs(goal-laps*2*M_PI)>m_tolerance)
         {
             near_loop=true;
         }
         clearFirstTime();
     }
     distance=std::fabs(destination-yaw);//goal yaw - current yaw
-    if(distance>=TURN_THRESHOLD)//tolerance
+    if(distance>=m_tolerance)//tolerance
     {
         near_loop=false;
         if(goal_sign)

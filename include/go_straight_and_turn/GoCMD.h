@@ -68,5 +68,6 @@ protected:
     double goal{0};//goal distance
     double distance{0.0};//distance to the goal
     double speed{0.0};//velocity m/s or rad/s
+    double m_tolerance{0.01};
 };
 
