@@ -9,6 +9,7 @@ def generate_launch_description():
     ctrl_freq=LaunchConfiguration('ctrl_freq', default=10.0)
     cmd_vel_topic=LaunchConfiguration('cmd_vel_topic', default='/cmd_vel')
     odom_topic=LaunchConfiguration('odom_topic', default='/odom')
+    tolerance=LaunchConfiguration('tolerance', default=0.05)
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -36,13 +37,19 @@ def generate_launch_description():
             default_value=odom_topic,
             description='The topic published from odom sensor (nav_msgs/Odometry).'
         ),
+        DeclareLaunchArgument(
+            'tolerance',
+            default_value=tolerance,
+            description='The tolerance distance when achieving the goal.'
+        ),
         Node(
             package='go_straight_and_turn',
             node_executable='go_turn_node',
             node_name='go_turn',
             output="screen",
             parameters=[
-                {'ctrl_freq': ctrl_freq}
+                {'ctrl_freq': ctrl_freq},
+                {'tolerance': tolerance}
             ],
             arguments=[distance,velocity],
             remappings=[

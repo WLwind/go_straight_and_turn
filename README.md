@@ -16,7 +16,9 @@ Linear or angular distance that robot will move for (m or rad).
 Linear or angular velocity that robot will move with (m/s or rad/s).  
 5. ctrl_freq  
 The frequence of /cmd_vel topic is published(Hz).  
+6. tolerance  
+The tolerance distance when achieving the goal.  
 __All default arguments are appropriate with Turtlebot3.__  
 ## Examples
-go_straight example: `ros2 launch go_straight_and_turn go_straight_dashing.launch.py odom_topic:=/odom cmd_vel_topic:=/cmd_vel distance:=0.5 velocity:=0.15 ctrl_freq:=8.0`  
-go_turn example: `ros2 launch go_straight_and_turn go_turn_dashing.launch.py odom_topic:=/odom cmd_vel_topic:=/cmd_vel distance:=-1.57 velocity:=0.3 ctrl_freq:=8.0`  
+go_straight example: `ros2 launch go_straight_and_turn go_straight_dashing.launch.py odom_topic:=/odom cmd_vel_topic:=/cmd_vel distance:=0.5 velocity:=0.15 ctrl_freq:=8.0 tolerance:=0.005`  
+go_turn example: `ros2 launch go_straight_and_turn go_turn_dashing.launch.py odom_topic:=/odom cmd_vel_topic:=/cmd_vel distance:=-1.57 velocity:=0.3 ctrl_freq:=8.0 tolerance:=0.05`  

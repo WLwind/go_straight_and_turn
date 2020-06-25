@@ -14,7 +14,7 @@ geometry_msgs::msg::Twist GoStraight::getCmdVel(const nav_msgs::msg::Odometry::S
         RCLCPP_INFO(get_logger(),"Start coordinate is (%.3f,%.3f)",x,y);
     }
     distance=std::abs(goal)-std::sqrt(std::pow(x-start[0],2)+std::pow(y-start[1],2));//goal distance - current distance
-    if(distance>=0.005)//tolerance
+    if(distance>=m_tolerance)//tolerance
     {
         if(goal_sign)
             straight_speed.linear.x=speed!=0.0?speed:0.03;

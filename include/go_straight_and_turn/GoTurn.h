@@ -1,7 +1,6 @@
 #pragma once
 
 #include <go_straight_and_turn/GoCMD.h>
-#define TURN_THRESHOLD 0.05
 
 class GoTurn:public GoCMD
 {
@@ -16,7 +15,7 @@ public:
     /**
     * @brief Destructor
     */
-    virtual ~GoTurn(){}
+    ~GoTurn() override{}
 
 private:
     double start{0.0},destination{0.0};//initial yaw， goal yaw

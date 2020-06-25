@@ -6,6 +6,8 @@ GoCMD::GoCMD(double goal_init,double speed_init,bool shutdown,std::string node_n
     RCLCPP_INFO(get_logger(),"Set goal to %.3f",goal);
     if(!get_parameter("ctrl_freq",m_ctrl_freq))
         m_ctrl_freq=10.0;
+    if(!get_parameter("tolerance",m_tolerance))
+        m_ctrl_freq=10.0;
     m_cmd_timer=create_wall_timer(std::chrono::duration<int,std::milli>(int(1000/m_ctrl_freq)),std::bind(&GoCMD::timerCB,this));
 }
 

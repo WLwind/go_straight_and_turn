@@ -15,7 +15,7 @@ public:
     /**
     * @brief Destructor
     */
-    virtual ~GoStraight(){}
+    ~GoStraight() override{}
 
 private:
     double start[2]{0.0,0.0};//initial coordinate

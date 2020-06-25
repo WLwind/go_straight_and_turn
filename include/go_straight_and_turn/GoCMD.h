@@ -56,8 +56,10 @@ public:
     bool goal_sign{true};//positive or negative sign
 
 private:
+    /**
+    * @brief Timer callback for publishing cmd_vel
+    */
     void timerCB();
-//    ros::NodeHandle nh;
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub{create_subscription<nav_msgs::msg::Odometry>("odom",10,std::bind(&GoCMD::odomCB,this,std::placeholders::_1))};//odom subscriber
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr vel_pub{create_publisher<geometry_msgs::msg::Twist>("cmd_vel",10)};//velocity publisher
     geometry_msgs::msg::Twist cmd_vel_msg;//velocity mesage
@@ -72,4 +74,5 @@ protected:
     double goal{0};//goal distance
     double distance{0.0};//distance to the goal
     double speed{0.0};//velocity m/s or rad/s
+    double m_tolerance{0.01};//tolerance when when achieving the goal
 };
