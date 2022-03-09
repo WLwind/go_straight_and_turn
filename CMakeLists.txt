@@ -39,13 +39,13 @@ endif()
 include_directories(
   include
 )
-add_library(GoStraight
+add_library(GoStraight SHARED
   src/GoCMD.cpp
   src/GoStraight.cpp
 )
 ament_target_dependencies(GoStraight rclcpp geometry_msgs nav_msgs)
 
-add_library(GoTurn
+add_library(GoTurn SHARED
   src/GoCMD.cpp
   src/GoTurn.cpp
 )

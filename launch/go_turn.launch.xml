@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="distance" default="1.570796327"/>
+    <arg name="velocity" default="0.3"/>
+    <arg name="cmd_vel_topic" default="/cmd_vel"/>
+    <arg name="odom_topic" default="/odom"/>
+    <arg name="ctrl_freq" default="10.0"/>
+    <arg name="tolerance" default="0.05"/>
+    <node name="go_turn" pkg="go_straight_and_turn" exec="go_turn_node" args="$(var distance) $(var velocity)" output="screen">
+        <param name="ctrl_freq" value="$(var ctrl_freq)"/>
+        <remap from="cmd_vel" to="$(var cmd_vel_topic)"/>
+        <remap from="odom" to="$(var odom_topic)"/>
+    </node>
+</launch>
