@@ -60,7 +60,7 @@ private:
     * @brief Timer callback for publishing cmd_vel
     */
     void timerCB();
-    rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub{create_subscription<nav_msgs::msg::Odometry>("odom",10,std::bind(&GoCMD::odomCB,this,std::placeholders::_1))};//odom subscriber
+    rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub; //odom subscriber
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr vel_pub{create_publisher<geometry_msgs::msg::Twist>("cmd_vel",10)};//velocity publisher
     geometry_msgs::msg::Twist cmd_vel_msg;//velocity mesage
     std::mutex m_cmd_vel_mx;
@@ -71,6 +71,7 @@ private:
     bool m_shutdown{true};//whether to shutdown the node after publishing zero speed
 
 protected:
+    rclcpp::callback_group::CallbackGroup::SharedPtr callback_group_sub_ { create_callback_group(rclcpp::callback_group::CallbackGroupType::Reentrant) }; //for multi-thread spin
     double goal{0};//goal distance
     double distance{0.0};//distance to the goal
     double speed{0.0};//velocity m/s or rad/s

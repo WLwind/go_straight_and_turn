@@ -2,6 +2,9 @@
 
 GoCMD::GoCMD(double goal_init,double speed_init,bool shutdown,std::string node_name):Node(node_name),m_shutdown(shutdown),goal(goal_init),distance(goal_init),speed(speed_init)
 {
+    rclcpp::SubscriptionOptions sub_option;
+    sub_option.callback_group = callback_group_sub_;
+    odom_sub = create_subscription<nav_msgs::msg::Odometry>("odom", 10, std::bind(&GoCMD::odomCB, this, std::placeholders::_1), sub_option);
     goal_sign=goal>=0;
     RCLCPP_INFO(get_logger(),"Set goal to %.3f",goal);
     if(!get_parameter("ctrl_freq",m_ctrl_freq))
