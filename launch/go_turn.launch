@@ -8,6 +8,7 @@
     <arg name="tolerance" default="0.05"/>
     <node name="go_turn" pkg="go_straight_and_turn" type="go_turn" args="$(arg distance) $(arg velocity)" output="screen">
         <param name="ctrl_freq" value="$(arg ctrl_freq)"/>
+        <param name="tolerance" value="$(arg tolerance)"/>
         <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
         <remap from="odom" to="$(arg odom_topic)"/>
     </node>
